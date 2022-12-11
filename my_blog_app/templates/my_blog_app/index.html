@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block navigation %}
+{% endblock %}
+{% load static %}
+
+{% block title %}Home | {% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="{% static "my_blog_app/appStyle.css" %}">
+{% endblock %}
+
+
+{% block  content%}
+
+    <div class="container-fluid">
+         <div class="hero_img" style="background-image: url('../../static/images/blackgirl2.jpg');
+         background-repeat:no-repeat;
+         background-size: cover;
+         background-position: center;"
+         >
+             <div id="hero-message">
+                 <h2 class="text-white fs-1">Everybody has a Story,</h2>
+                 <p class="text-white fs-3">Have you ever imagined what a girls story looks like</p>
+                  <p class="text-white fs-3">There are things a girl can hardly say,and now i would speak...</p>
+             </div>
+
+        </div>
+            <div class="row row-cols-md-3 row-cols-sm-2 row-cols-1 text-center py-4  post">
+                {% for my_post in my_posts %}
+                    <div class="card my-card col text-center">
+                        <a href=" {{ my_post.get_absolute_url }}">
+                            <h4 class="card-title">{{ my_post.title | title}}</h4>
+                        </a>
+                            <p>{{ my_post.body|truncatewords:10|linebreaks}}<a href="{{ my_post.get_absolute_url }}"><span>Read more</span></a></p>
+                             <p>posted on {{ my_post.date_created |date:'M-d-Y H: i' }}</p>
+                            <p>updated on {{ my_post.date_updated }}</p>
+                            <p><i> written by {{ my_post.author }}</i></p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% include "my_blog_app/includes/footer.html" %}
+    <script src="{% static "js/jsfile.js" %}"></script>
+
+{% endblock %}
+{#    <button id="btn" onclick="changeBackground()">change background</button>#}
